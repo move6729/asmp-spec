@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ASMP_Repository_State",
+  "type": "object",
+  "properties": {
+    "asmp_version": {
+      "type": "string",
+      "enum": ["1.0.0"]
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "repository_metadata": {
+      "type": "object",
+      "properties": {
+        "repo_id": { "type": "string" },
+        "source_agent_orchestrator": { "type": "string" },
+        "target_language_targets": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["repo_id", "source_agent_orchestrator"]
+    },
+    "ast_matrix": {
+      "type": "object",
+      "description": "Symbol graphs and dependency topologies decoupled from syntax.",
+      "properties": {
+        "symbols_count": { "type": "integer" },
+        "dependency_graph_hash": { "type": "string" }
+      },
+      "required": ["symbols_count", "dependency_graph_hash"]
+    },
+    "context_vectors": {
+      "type": "object",
+      "description": "Serialized institutional context and operational rules.",
+      "properties": {
+        "architectural_constraints": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "vector_embedding_model": { "type": "string" },
+        "serialized_context_hash": { "type": "string" }
+      },
+      "required": ["architectural_constraints", "serialized_context_hash"]
+    },
+    "migration_guarantee": {
+      "type": "object",
+      "properties": {
+        "zero_lockin_verified": { "type": "boolean" },
+        "estimated_migration_time_seconds": { "type": "number" }
+      },
+      "required": ["zero_lockin_verified", "estimated_migration_time_seconds"]
+    }
+  },
+  "required": [
+    "asmp_version",
+    "timestamp_utc",
+    "repository_metadata",
+    "ast_matrix",
+    "context_vectors",
+    "migration_guarantee"
+  ]
+}
